@@ -17,8 +17,8 @@ function _isPromise(obj) {
  * @param {*} handler 处理函数
  */
 export function createPromiseAction(type, asyncFunc) {
-  if(typeof type === 'string') {
-    return new Error(`type must be string but got ${typeof type}`)
+  if(typeof type !== 'string') {
+    new Error(`type must be string but got ${typeof type}`)
   }
 
   const startAction = createAction(`${type}_${ASYNC_SUFFIX.START}`)
