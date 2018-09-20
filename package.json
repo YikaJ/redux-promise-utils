@@ -1,13 +1,13 @@
 {
   "name": "redux-promise-utils",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "redux promise utils for you!",
-  "main": "dist/main.js",
+  "main": "lib/main.js",
   "author": "YikaJ",
   "license": "MIT",
   "types": "./types/index.d.ts",
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
     "build": "babel src --out-dir lib --extensions .ts",

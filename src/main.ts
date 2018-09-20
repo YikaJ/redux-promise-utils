@@ -16,12 +16,16 @@ function _isPromise(obj) {
  * @param {string} type 类型
  * @param {*} handler 处理函数
  */
-export function createAsyncAction(type, asyncFunc) {
+export function createPromiseAction(type, asyncFunc) {
+  if(typeof type === 'string') {
+    return new Error(`type must be string but got ${typeof type}`)
+  }
+
   const startAction = createAction(`${type}_${ASYNC_SUFFIX.START}`)
   const successAction = createAction(`${type}_${ASYNC_SUFFIX.SUCCESS}`)
   const failedAction = createAction(`${type}_${ASYNC_SUFFIX.FAILED}`)
 
-  return (payload) => {
+  const actionCreator = (payload) => {
     // 这一层是给 redux-thunk 用的
     return (dispatch, getState) => {
       // 调用初始 Action
@@ -43,6 +47,11 @@ export function createAsyncAction(type, asyncFunc) {
       })
     }
   }
+
+  // 重写 toString 来配合 combineReducer 使用
+  actionCreator.toString = () => type
+
+  return actionCreator
 }
 
 
@@ -62,10 +71,10 @@ class Reducer {
   which(actionType, handler) {
     if (Array.isArray(actionType)) {
       actionType.forEach(type => {
-        this.handlers[type] = handler
+        this.handlers[type.toString()] = handler
       })
     } else {
-      this.handlers[actionType] = handler
+      this.handlers[actionType.toString()] = handler
     }
 
     return this
@@ -85,10 +94,10 @@ class Reducer {
 
     if (Array.isArray(actionType)) {
       actionType.forEach(type => {
-        addHandler(type, handlerOptions)
+        addHandler(type.toString(), handlerOptions)
       })
     } else {
-      addHandler(actionType, handlerOptions)
+      addHandler(actionType.toString(), handlerOptions)
     }
 
     return this
