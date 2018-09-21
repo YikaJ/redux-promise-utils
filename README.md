@@ -41,7 +41,7 @@ const initState = {}
 const reducer = createReducer(initState)
     // catch sync action
     .which('SYNC_ACTION', (state, action) => {
-        return action
+        return state
     })
     // catch async action with three state
     .asyncWhich(fetchAction, {
