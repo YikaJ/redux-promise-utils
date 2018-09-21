@@ -2,6 +2,8 @@
 
 Based on [redux-thunk](https://github.com/reduxjs/redux-thunk) & [redux-actions](https://github.com/redux-utilities/redux-actions).
 
+Easy utils to handle Promise in redux.
+
 ## Quick Start
 
 ### Install
@@ -37,11 +39,11 @@ import { fetchAction } from './action'
 const initState = {}
 
 const reducer = createReducer(initState)
-    // 获取同步数据
-    .which(SYNC_ACTION, (state, action) => {
+    // catch sync action
+    .which('SYNC_ACTION', (state, action) => {
         return action
     })
-    // 获取异步数据
+    // catch async action with three state
     .asyncWhich(fetchAction, {
         start(state, action) {
             return state
@@ -53,7 +55,7 @@ const reducer = createReducer(initState)
             return state
         }
     })
-    // 构建 redux 需要的 reducer 方法
+    // build redux reducer handler
     .build()
 
 export default reducer
