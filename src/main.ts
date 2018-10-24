@@ -49,7 +49,7 @@ export function createPromiseAction(type, asyncFunc) {
   }
 
   // 重写 toString 来配合 combineReducer 使用
-  actionCreator.toString = () => type
+  actionCreator.toString = () => type.toString()
 
   return actionCreator
 }
