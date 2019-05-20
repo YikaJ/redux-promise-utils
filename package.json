@@ -1,6 +1,6 @@
 {
   "name": "redux-promise-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "redux promise utils for you!",
   "main": "lib/main.js",
   "author": "YikaJ",
