@@ -6,7 +6,7 @@ declare module 'redux-promise-utils' {
 
   export function createPromiseAction<Payload> (
     type: string, 
-    asyncFunc: () => Promise<Payload>
+    asyncFunc: (...args: any[]) => Promise<Payload>
   ): AsyncActionFunctionAny<Action<Payload>>
 
   interface IHandlerOptions<State> {
