@@ -2,12 +2,12 @@ import { Action, ActionFunctionAny, Reducer } from 'redux-actions'
 
 declare module 'redux-promise-utils' {
 
-  export type AsyncActionFunctionAny<R> = (...args: any[]) => Promise<R>
+  export type AsyncActionFunctionAny<R, Arguments = {}> = (args?: Arguments) => Promise<R>
 
-  export function createPromiseAction<Payload> (
+  export function createPromiseAction<Payload, Arguments> (
     type: string, 
-    asyncFunc: (...args: any[]) => Promise<Payload>
-  ): AsyncActionFunctionAny<Action<Payload>>
+    asyncFunc: (args?: Arguments) => Promise<Payload>
+  ): AsyncActionFunctionAny<Action<Payload>, Arguments>
 
   interface IHandlerOptions<State> {
     start?: (state: State, action: Action<any>) => State,
