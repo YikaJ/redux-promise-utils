@@ -2,12 +2,12 @@ import { Action, ActionFunctionAny, Reducer } from 'redux-actions'
 
 declare module 'redux-promise-utils' {
 
-  export type AsyncActionFunctionAny<R, Arguments = {}> = (args?: Arguments) => Promise<R>
+  export type AsyncActionFunctionAny<R, P, Arguments = {}> = (args?: Arguments) => Promise<P>
 
-  export function createPromiseAction<Payload, Arguments> (
-    type: string, 
+  export function createPromiseAction<Payload, Arguments>(
+    type: string,
     asyncFunc: (args?: Arguments) => Promise<Payload>
-  ): AsyncActionFunctionAny<Action<Payload>, Arguments>
+  ): AsyncActionFunctionAny<Action<Payload>, Payload, Arguments>
 
   interface IHandlerOptions<State> {
     start?: (state: State, action: Action<any>) => State,
@@ -18,13 +18,13 @@ declare module 'redux-promise-utils' {
   interface IReducer<State, Payload> {
     // handle sync Action
     which(
-      type: ActionFunctionAny<Action<any>>, 
+      type: ActionFunctionAny<Action<any>>,
       handler: (state: State, action: Action<any>) => State
     ): IReducer<State, Payload>
 
     // handle async Action
-    asyncWhich (
-      type: AsyncActionFunctionAny<Action<Payload>>, 
+    asyncWhich(
+      type: AsyncActionFunctionAny<Action<Payload>, Payload>,
       options: IHandlerOptions<State>
     ): IReducer<State, Payload>
 
